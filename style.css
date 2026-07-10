@@ -46,7 +46,7 @@ color:#ff2a2a;
 
 .hero{
 height:100vh;
-background:linear-gradient(rgba(0,0,0,.75),rgba(0,0,0,.85)),url("images/cover.jpg") center/cover no-repeat;
+background:linear-gradient(rgba(0,0,0,.75),rgba(0,0,0,.85)),url("images/cover.png") center/cover no-repeat;
 display:flex;
 justify-content:center;
 align-items:center;
