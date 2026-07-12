@@ -1,30 +1,322 @@
-// ===============================
-// CRIME 24X7 OFFICIAL SCRIPT
-// ===============================
+// ======================================
+// CRIME 24X7 OFFICIAL WEBSITE
+// SCRIPT
+// ======================================
 
-// Loader
+// ============================
+// LOADER
+// ============================
+
 window.addEventListener("load", () => {
 
-    const loader = document.querySelector(".loader");
+const loader = document.getElementById("loader");
 
-    setTimeout(() => {
+setTimeout(() => {
 
-        if(loader){
-            loader.style.opacity = "0";
-            loader.style.visibility = "hidden";
-        }
+loader.style.opacity = "0";
 
-    },2000);
+loader.style.visibility = "hidden";
+
+}, 1800);
 
 });
 
-// Smooth Scroll
+// ============================
+// SCROLL PROGRESS BAR
+// ============================
+
+const progressBar = document.getElementById("progress-bar");
+
+window.addEventListener("scroll", () => {
+
+const scrollTop =
+document.documentElement.scrollTop;
+
+const scrollHeight =
+document.documentElement.scrollHeight -
+document.documentElement.clientHeight;
+
+const progress =
+(scrollTop / scrollHeight) * 100;
+
+progressBar.style.width =
+progress + "%";
+
+});
+
+// ============================
+// HEADER EFFECT
+// ============================
+
+const header =
+document.getElementById("header");
+
+window.addEventListener("scroll", () => {
+
+if(window.scrollY > 60){
+
+header.classList.add("scrolled");
+
+}
+
+else{
+
+header.classList.remove("scrolled");
+
+}
+
+});
+
+// ============================
+// REVEAL ANIMATION
+// ============================
+
+const observer =
+new IntersectionObserver((entries)=>{
+
+entries.forEach(entry=>{
+
+if(entry.isIntersecting){
+
+entry.target.classList.add("active");
+
+}
+
+});
+
+},{
+threshold:.2
+});
+
+document.querySelectorAll(
+
+".book-section,.story,.author,.reviews,.cta"
+
+).forEach(section=>{
+
+section.classList.add("reveal");
+
+observer.observe(section);
+
+});
+
+// ============================
+// CURSOR GLOW
+// ============================
+
+const glow =
+document.getElementById("cursor-glow");
+
+document.addEventListener("mousemove",(e)=>{
+
+glow.style.left = e.clientX+"px";
+
+glow.style.top = e.clientY+"px";
+
+});
+// ======================================
+// HERO PARALLAX
+// ======================================
+
+const hero = document.querySelector(".hero");
+const cover = document.querySelector(".book-cover");
+
+if(hero && cover){
+
+hero.addEventListener("mousemove",(e)=>{
+
+const x =
+(window.innerWidth / 2 - e.clientX) / 40;
+
+const y =
+(window.innerHeight / 2 - e.clientY) / 40;
+
+cover.style.transform =
+`rotateY(${x}deg) rotateX(${-y}deg)`;
+
+});
+
+hero.addEventListener("mouseleave",()=>{
+
+cover.style.transform =
+"rotateY(0deg) rotateX(0deg)";
+
+});
+
+}
+
+// ======================================
+// BUTTON RIPPLE EFFECT
+// ======================================
+
+document.querySelectorAll(".btn-red,.btn-white").forEach(button=>{
+
+button.addEventListener("click",function(e){
+
+const circle =
+document.createElement("span");
+
+const size =
+Math.max(this.offsetWidth,this.offsetHeight);
+
+circle.style.width = size+"px";
+circle.style.height = size+"px";
+
+circle.style.position="absolute";
+circle.style.borderRadius="50%";
+circle.style.background="rgba(255,255,255,.25)";
+circle.style.pointerEvents="none";
+circle.style.transform="scale(0)";
+circle.style.animation="ripple .6s linear";
+
+const rect =
+this.getBoundingClientRect();
+
+circle.style.left =
+(e.clientX-rect.left-size/2)+"px";
+
+circle.style.top =
+(e.clientY-rect.top-size/2)+"px";
+
+this.appendChild(circle);
+
+setTimeout(()=>{
+
+circle.remove();
+
+},600);
+
+});
+
+});
+
+// ======================================
+// CREATE RIPPLE STYLE
+// ======================================
+
+const rippleStyle =
+document.createElement("style");
+
+rippleStyle.innerHTML = `
+
+.btn-red,
+.btn-white{
+
+position:relative;
+overflow:hidden;
+
+}
+
+@keyframes ripple{
+
+to{
+
+transform:scale(4);
+opacity:0;
+
+}
+
+}
+
+`;
+
+document.head.appendChild(rippleStyle);
+
+// ======================================
+// FLOATING PARTICLES
+// ======================================
+
+for(let i=0;i<20;i++){
+
+const particle =
+document.createElement("div");
+
+particle.className="particle";
+
+particle.style.left =
+Math.random()*100+"vw";
+
+particle.style.animationDuration =
+(6+Math.random()*8)+"s";
+
+particle.style.animationDelay =
+Math.random()*5+"s";
+
+document.body.appendChild(particle);
+
+}
+
+const particleCSS =
+document.createElement("style");
+
+particleCSS.innerHTML=`
+
+.particle{
+
+position:fixed;
+
+bottom:-20px;
+
+width:3px;
+
+height:3px;
+
+background:rgba(193,18,31,.5);
+
+border-radius:50%;
+
+pointer-events:none;
+
+animation:particleMove linear infinite;
+
+z-index:1;
+
+}
+
+@keyframes particleMove{
+
+0%{
+
+transform:
+translateY(0)
+scale(0);
+
+opacity:0;
+
+}
+
+20%{
+
+opacity:1;
+
+}
+
+100%{
+
+transform:
+translateY(-120vh)
+scale(1.8);
+
+opacity:0;
+
+}
+
+}
+
+`;
+
+document.head.appendChild(particleCSS);
+
+// ======================================
+// SMOOTH SCROLL
+// ======================================
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
 
 anchor.addEventListener("click",function(e){
 
-const target=document.querySelector(this.getAttribute("href"));
+const target =
+document.querySelector(this.getAttribute("href"));
 
 if(target){
 
@@ -42,158 +334,15 @@ behavior:"smooth"
 
 });
 
-// Reveal Animation
-
-const observer=new IntersectionObserver((entries)=>{
-
-entries.forEach(entry=>{
-
-if(entry.isIntersecting){
-
-entry.target.classList.add("show");
-
-}
-
-});
-
-},{threshold:.2});
-
-document.querySelectorAll("section").forEach(sec=>{
-
-sec.classList.add("hidden");
-
-observer.observe(sec);
-
-});
-
-// Navbar Background
-
-const header=document.querySelector("header");
-
-window.addEventListener("scroll",()=>{
-
-if(window.scrollY>80){
-
-header.style.background="rgba(0,0,0,.85)";
-header.style.backdropFilter="blur(15px)";
-
-}else{
-
-header.style.background="rgba(0,0,0,.35)";
-header.style.backdropFilter="blur(10px)";
-
-}
-
-});
-
-// Floating Book Animation
-
-const book=document.querySelector(".book img");
-
-if(book){
-
-let angle=0;
-
-setInterval(()=>{
-
-angle+=0.03;
-
-book.style.transform=
-`translateY(${Math.sin(angle)*8}px)
-rotateY(${Math.sin(angle)*8}deg)`;
-
-},25);
-
-}
-
-// Hero Parallax
-
-const hero=document.querySelector(".hero");
-
-document.addEventListener("mousemove",(e)=>{
-
-if(!hero) return;
-
-const x=(e.clientX/window.innerWidth-.5)*20;
-const y=(e.clientY/window.innerHeight-.5)*20;
-
-hero.style.backgroundPosition=`${50+x}% ${50+y}%`;
-
-});
-
-// Typing Effect
-
-const heading=document.querySelector(".hero h2");
-
-if(heading){
-
-const text=heading.innerText;
-
-heading.innerHTML="";
-
-let i=0;
-
-function type(){
-
-if(i<text.length){
-
-heading.innerHTML+=text.charAt(i);
-
-i++;
-
-setTimeout(type,60);
-
-}
-
-}
-
-setTimeout(type,1200);
-
-}
-
-// Button Hover Glow
-
-document.querySelectorAll(".buy,.buy-btn").forEach(btn=>{
-
-btn.addEventListener("mouseenter",()=>{
-
-btn.style.boxShadow="0 0 40px rgba(214,0,28,.8)";
-
-});
-
-btn.addEventListener("mouseleave",()=>{
-
-btn.style.boxShadow="0 0 20px rgba(214,0,28,.4)";
-
-});
-
-});
-
-// Scroll Progress Bar
-
-const progress=document.createElement("div");
-
-progress.style.position="fixed";
-progress.style.top="0";
-progress.style.left="0";
-progress.style.height="4px";
-progress.style.width="0%";
-progress.style.background="#d6001c";
-progress.style.zIndex="999999";
-
-document.body.appendChild(progress);
-
-window.addEventListener("scroll",()=>{
-
-const total=document.documentElement.scrollHeight-window.innerHeight;
-
-const current=(window.scrollY/total)*100;
-
-progress.style.width=current+"%";
-
-});
-
-// Console Message 😎
-
-console.log("%cCRIME 24X7","font-size:32px;color:#d6001c;font-weight:bold;");
-console.log("Official Website by K. TRIVEDI");
+// ======================================
+// CONSOLE MESSAGE
+// ======================================
+
+console.log(
+"%cCRIME 24X7",
+"color:#C1121F;font-size:28px;font-weight:bold;"
+);
+
+console.log(
+"Official Website by K. TRIVEDI"
+);
